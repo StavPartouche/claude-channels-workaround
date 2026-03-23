@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-telegram-bridge",
+  "owner": {
+    "name": "StavPartouche",
+    "url": "https://github.com/StavPartouche"
+  },
+  "plugins": [
+    {
+      "name": "telegram-bridge",
+      "source": "./plugins/telegram-bridge",
+      "description": "Control Claude Code remotely from Telegram. Workaround for API-based subscriptions where --channels is unavailable."
+    }
+  ]
+}

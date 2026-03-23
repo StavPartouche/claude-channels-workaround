@@ -1,0 +1,12 @@
+{
+  "name": "telegram-bridge",
+  "version": "1.0.0",
+  "description": "Control Claude Code remotely from Telegram. A bash bridge that polls the Telegram Bot API and pipes messages to claude --print. Workaround for API-based subscriptions where --channels returns 'Channels are not currently available'.",
+  "author": {
+    "name": "StavPartouche",
+    "url": "https://github.com/StavPartouche"
+  },
+  "license": "MIT",
+  "keywords": ["telegram", "remote", "bridge", "channels", "bot"],
+  "homepage": "https://github.com/StavPartouche/claude-telegram-bridge"
+}
