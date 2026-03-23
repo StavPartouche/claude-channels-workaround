@@ -29,6 +29,6 @@ tmux has-session -t claude-telegram 2>/dev/null && echo "STILL_RUNNING" || echo 
 
 ## Step 3 — Report
 
-If `STOPPED`: print "Bridge stopped. @AutodeskMAC_bot will no longer respond. Run /telegram-bot:start to bring it back."
+If `STOPPED`: print "Bridge stopped. @AutodeskMAC_bot will no longer respond. Run /telegram-bridge:start to bring it back."
 
 If `STILL_RUNNING`: print an error and the raw tmux output.

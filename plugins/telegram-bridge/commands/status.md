@@ -23,10 +23,10 @@ Based on the result, print:
   Session:    claude-telegram  [RUNNING or NOT RUNNING]
 
   Commands:
-    /telegram-bot:start   — start the bridge
-    /telegram-bot:logs    — view recent logs
-    /telegram-bot:kill    — stop the bridge
-    /telegram-bot:setup   — first-time setup guide
+    /telegram-bridge:start   — start the bridge
+    /telegram-bridge:logs    — view recent logs
+    /telegram-bridge:kill    — stop the bridge
+    /telegram-bridge:setup   — first-time setup guide
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 

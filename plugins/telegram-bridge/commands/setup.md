@@ -345,13 +345,13 @@ Print a final summary:
   Your bot is live. DM it on Telegram to talk to Claude.
 
   Useful commands:
-    /telegram-bot:status  — check if bridge is running
-    /telegram-bot:start   — start the bridge
-    /telegram-bot:logs    — view recent activity
-    /telegram-bot:kill    — stop the bridge
+    /telegram-bridge:status  — check if bridge is running
+    /telegram-bridge:start   — start the bridge
+    /telegram-bridge:logs    — view recent activity
+    /telegram-bridge:kill    — stop the bridge
 
   Troubleshooting:
-    - Bot doesn't respond → check logs with /telegram-bot:logs
+    - Bot doesn't respond → check logs with /telegram-bridge:logs
     - claude --print "hello" must work in your terminal
     - Your Telegram user ID must be in ~/.claude/channels/telegram/access.json
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

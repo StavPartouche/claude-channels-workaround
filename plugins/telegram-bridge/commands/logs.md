@@ -21,4 +21,4 @@ Print the output under a clear header showing the session status from Step 1.
 
 ## Step 3 — Tip
 
-If the bridge is `NOT_RUNNING`, suggest running `/telegram-bot:start` to bring it back up.
+If the bridge is `NOT_RUNNING`, suggest running `/telegram-bridge:start` to bring it back up.

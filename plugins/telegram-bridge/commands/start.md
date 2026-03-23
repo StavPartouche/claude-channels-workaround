@@ -13,7 +13,7 @@ tmux has-session -t claude-telegram 2>/dev/null && echo "ALREADY_RUNNING" || ech
 
 ## Step 2 — Start if not running
 
-If `ALREADY_RUNNING`: print "Bridge is already running. Use /telegram-bot:status to check it." and stop.
+If `ALREADY_RUNNING`: print "Bridge is already running. Use /telegram-bridge:status to check it." and stop.
 
 If `NOT_RUNNING`: run:
 
@@ -29,6 +29,6 @@ sleep 2 && tmux has-session -t claude-telegram 2>/dev/null && echo "STARTED_OK" 
 
 ## Step 3 — Report result
 
-If `STARTED_OK`: print "Bridge started. @AutodeskMAC_bot is now listening. Use /telegram-bot:logs to see activity."
+If `STARTED_OK`: print "Bridge started. @AutodeskMAC_bot is now listening. Use /telegram-bridge:logs to see activity."
 
-If `FAILED_TO_START`: print the error and suggest running `/telegram-bot:setup` if the bot files are missing, or checking `~/claude-telegram-bot/logs/bridge.log`.
+If `FAILED_TO_START`: print the error and suggest running `/telegram-bridge:setup` if the bot files are missing, or checking `~/claude-telegram-bot/logs/bridge.log`.
