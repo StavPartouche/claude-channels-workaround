@@ -16,8 +16,8 @@ Claude Code v2.1.80+ has a `--channels` flag for Telegram integration, but it re
 ## Install
 
 ```bash
-claude plugin add-marketplace claude-telegram-bridge --github StavPartouche/claude-telegram-bridge
-claude plugin install telegram-bridge@claude-telegram-bridge
+claude plugin add-marketplace claude-channels-workaround --github StavPartouche/claude-channels-workaround
+claude plugin install telegram-bridge@claude-channels-workaround
 ```
 
 ## Commands

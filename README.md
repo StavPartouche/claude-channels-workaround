@@ -1,12 +1,12 @@
-# claude-telegram-bridge marketplace
+# claude-channels-workaround marketplace
 
 Claude Code plugin marketplace containing the `telegram-bridge` plugin.
 
 ## Install
 
 ```bash
-claude plugin add-marketplace claude-telegram-bridge --github StavPartouche/claude-telegram-bridge
-claude plugin install telegram-bridge@claude-telegram-bridge
+claude plugin add-marketplace claude-channels-workaround --github StavPartouche/claude-channels-workaround
+claude plugin install telegram-bridge@claude-channels-workaround
 ```
 
 Then run `/telegram-bridge:setup` in Claude Code to get started.

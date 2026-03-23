@@ -1,6 +1,6 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "claude-telegram-bridge",
+  "name": "claude-channels-workaround",
   "owner": {
     "name": "StavPartouche",
     "url": "https://github.com/StavPartouche"
