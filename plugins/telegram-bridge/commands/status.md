@@ -11,7 +11,7 @@ allowed-tools: "*"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Telegram Claude Bridge — Status
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Bot:        @AutodeskMAC_bot
+  Bot:        your bot
   Session:    claude-telegram  [STATUS]
 
   Commands:

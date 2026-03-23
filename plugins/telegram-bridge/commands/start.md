@@ -11,6 +11,6 @@ allowed-tools: "*"
 
 4. Run `sleep 2 && tmux has-session -t claude-telegram 2>/dev/null && echo "STARTED_OK" || echo "FAILED_TO_START"` to verify.
 
-5. If `STARTED_OK`, tell the user "Bridge started. @AutodeskMAC_bot is now listening. Use /telegram-bridge:logs to see activity."
+5. If `STARTED_OK`, tell the user "Bridge started. your bot is now listening. Use /telegram-bridge:logs to see activity."
 
 6. If `FAILED_TO_START`, show the error and suggest running `/telegram-bridge:setup` if the bot files are missing, or checking `~/claude-telegram-bot/logs/bridge.log`.

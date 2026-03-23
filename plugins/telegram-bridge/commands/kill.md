@@ -11,6 +11,6 @@ allowed-tools: "*"
 
 4. Run `tmux has-session -t claude-telegram 2>/dev/null && echo "STILL_RUNNING" || echo "STOPPED"` to verify.
 
-5. If `STOPPED`, tell the user "Bridge stopped. @AutodeskMAC_bot will no longer respond. Run /telegram-bridge:start to bring it back."
+5. If `STOPPED`, tell the user "Bridge stopped. your bot will no longer respond. Run /telegram-bridge:start to bring it back."
 
 6. If `STILL_RUNNING`, show an error with the raw output.
