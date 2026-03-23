@@ -3,32 +3,14 @@ description: Stop the Telegram Claude bridge tmux session
 allowed-tools: [Bash]
 ---
 
-Stop the bridge.
+1. Run `tmux has-session -t claude-telegram 2>/dev/null && echo "RUNNING" || echo "NOT_RUNNING"` to check the current state.
 
-## Step 1 — Check if running
+2. If `NOT_RUNNING`, tell the user "Bridge is not running — nothing to stop." and stop.
 
-```bash
-tmux has-session -t claude-telegram 2>/dev/null && echo "RUNNING" || echo "NOT_RUNNING"
-```
+3. If `RUNNING`, run `tmux kill-session -t claude-telegram` to stop the bridge.
 
-## Step 2 — Kill if running
+4. Run `tmux has-session -t claude-telegram 2>/dev/null && echo "STILL_RUNNING" || echo "STOPPED"` to verify.
 
-If `NOT_RUNNING`: print "Bridge is not running — nothing to stop." and stop.
+5. If `STOPPED`, tell the user "Bridge stopped. @AutodeskMAC_bot will no longer respond. Run /telegram-bridge:start to bring it back."
 
-If `RUNNING`: run:
-
-```bash
-tmux kill-session -t claude-telegram
-```
-
-Then verify:
-
-```bash
-tmux has-session -t claude-telegram 2>/dev/null && echo "STILL_RUNNING" || echo "STOPPED"
-```
-
-## Step 3 — Report
-
-If `STOPPED`: print "Bridge stopped. @AutodeskMAC_bot will no longer respond. Run /telegram-bridge:start to bring it back."
-
-If `STILL_RUNNING`: print an error and the raw tmux output.
+6. If `STILL_RUNNING`, show an error with the raw output.

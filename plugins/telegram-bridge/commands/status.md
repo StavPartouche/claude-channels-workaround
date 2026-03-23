@@ -3,24 +3,16 @@ description: Show whether the Telegram Claude bridge is running and print a quic
 allowed-tools: [Bash]
 ---
 
-Check the bridge status and print a summary.
+1. Run `tmux has-session -t claude-telegram 2>/dev/null && echo "RUNNING" || echo "NOT_RUNNING"` to check if the bridge is active.
 
-## Step 1 — Check tmux session
-
-```bash
-tmux has-session -t claude-telegram 2>/dev/null && echo "RUNNING" || echo "NOT_RUNNING"
-```
-
-## Step 2 — Print status summary
-
-Based on the result, print:
+2. Print the following status block, substituting the actual result for [STATUS]:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Telegram Claude Bridge — Status
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Bot:        @AutodeskMAC_bot
-  Session:    claude-telegram  [RUNNING or NOT RUNNING]
+  Session:    claude-telegram  [STATUS]
 
   Commands:
     /telegram-bridge:start   — start the bridge
@@ -29,5 +21,3 @@ Based on the result, print:
     /telegram-bridge:setup   — first-time setup guide
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
-
-Replace `[RUNNING or NOT RUNNING]` with the actual status from Step 1.

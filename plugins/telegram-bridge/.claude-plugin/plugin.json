@@ -1,6 +1,6 @@
 {
   "name": "telegram-bridge",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Control Claude Code remotely from Telegram. A bash bridge that polls the Telegram Bot API and pipes messages to claude --print. Workaround for API-based subscriptions where --channels returns 'Channels are not currently available'.",
   "author": {
     "name": "StavPartouche",

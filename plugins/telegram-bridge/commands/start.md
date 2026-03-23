@@ -3,32 +3,14 @@ description: Start the Telegram Claude bridge in a background tmux session
 allowed-tools: [Bash]
 ---
 
-Start the Telegram bridge.
+1. Run `tmux has-session -t claude-telegram 2>/dev/null && echo "ALREADY_RUNNING" || echo "NOT_RUNNING"` to check the current state.
 
-## Step 1 — Check if already running
+2. If the result is `ALREADY_RUNNING`, tell the user "Bridge is already running. Use /telegram-bridge:status to check it." and stop.
 
-```bash
-tmux has-session -t claude-telegram 2>/dev/null && echo "ALREADY_RUNNING" || echo "NOT_RUNNING"
-```
+3. If the result is `NOT_RUNNING`, run `bash ~/claude-telegram-bot/start.sh` to start the bridge.
 
-## Step 2 — Start if not running
+4. Wait 2 seconds, then run `tmux has-session -t claude-telegram 2>/dev/null && echo "STARTED_OK" || echo "FAILED_TO_START"` to verify.
 
-If `ALREADY_RUNNING`: print "Bridge is already running. Use /telegram-bridge:status to check it." and stop.
+5. If `STARTED_OK`, tell the user "Bridge started. @AutodeskMAC_bot is now listening. Use /telegram-bridge:logs to see activity."
 
-If `NOT_RUNNING`: run:
-
-```bash
-bash ~/claude-telegram-bot/start.sh
-```
-
-Then verify it started:
-
-```bash
-sleep 2 && tmux has-session -t claude-telegram 2>/dev/null && echo "STARTED_OK" || echo "FAILED_TO_START"
-```
-
-## Step 3 — Report result
-
-If `STARTED_OK`: print "Bridge started. @AutodeskMAC_bot is now listening. Use /telegram-bridge:logs to see activity."
-
-If `FAILED_TO_START`: print the error and suggest running `/telegram-bridge:setup` if the bot files are missing, or checking `~/claude-telegram-bot/logs/bridge.log`.
+6. If `FAILED_TO_START`, show the error and suggest running `/telegram-bridge:setup` if the bot files are missing, or checking `~/claude-telegram-bot/logs/bridge.log`.
