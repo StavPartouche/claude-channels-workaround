@@ -1,9 +1,6 @@
 ---
-name: telegram-bridge:kill
 description: Stop the Telegram Claude bridge tmux session
-user-invocable: true
-allowed-tools:
-  - Bash
+allowed-tools: "*"
 ---
 
 1. Run `tmux has-session -t claude-telegram 2>/dev/null && echo "RUNNING" || echo "NOT_RUNNING"` to check the current state.

@@ -1,10 +1,6 @@
 ---
-name: telegram-bridge:setup
 description: Guided first-time setup of the Telegram Claude bridge (workaround for API-based Claude subscriptions)
-user-invocable: true
-allowed-tools:
-  - Bash
-  - Write
+allowed-tools: "*"
 ---
 
 Guide the user through setup one step at a time. Wait for confirmation before moving to the next step. If something fails, troubleshoot before continuing.
@@ -71,8 +67,7 @@ while true; do
     UPDATE_ID=$(echo "$update" | jq -r '.update_id'); OFFSET=$((UPDATE_ID + 1))
     MSG=$(echo "$update" | jq -c '.message // .edited_message // empty' 2>/dev/null); [[ -z "$MSG" ]] && continue
     TEXT=$(echo "$MSG" | jq -r '.text // empty'); [[ -z "$TEXT" ]] && continue
-    CHAT_ID=$(echo "$MSG" | jq -r '.chat.id')
-    MSG_ID=$(echo "$MSG" | jq -r '.message_id')
+    CHAT_ID=$(echo "$MSG" | jq -r '.chat.id'); MSG_ID=$(echo "$MSG" | jq -r '.message_id')
     FROM_ID=$(echo "$MSG" | jq -r '.from.id')
     FROM_USER=$(echo "$MSG" | jq -r '.from.username // .from.first_name // "unknown"')
     if ! is_allowed "$FROM_ID"; then echo "telegram-bridge: dropped from $FROM_USER ($FROM_ID)"; continue; fi
@@ -104,11 +99,11 @@ tmux new-session -d -s "$SESSION_NAME" -c "$BOT_DIR" "$BOT_DIR/bridge.sh 2>&1 | 
 echo "Started Telegram bridge in tmux session '$SESSION_NAME'"
 ```
 
-8. Run `bash ~/claude-telegram-bot/start.sh`, wait 3 seconds, then run `tail -5 ~/claude-telegram-bot/logs/bridge.log` to confirm it started. The log should show `telegram-bridge: starting as <botname>`.
+8. Run `bash ~/claude-telegram-bot/start.sh`, then `sleep 3 && tail -5 ~/claude-telegram-bot/logs/bridge.log` to confirm it started. The log should show `telegram-bridge: starting as <botname>`.
 
 9. Tell the user to send a test message to their bot in Telegram. Run `sleep 5 && tail -10 ~/claude-telegram-bot/logs/bridge.log` to confirm a message was received and a response sent.
 
-10. Ask if they want the bridge to auto-start on login. If yes, tell them to run the following in their terminal (replacing YOUR_USERNAME with their actual username — run `whoami` to check):
+10. Ask if they want the bridge to auto-start on login. If yes, tell them to run the following in their terminal (replacing YOUR_USERNAME with the result of `whoami`):
 
 ```
 cat > ~/Library/LaunchAgents/com.claude.telegram-bridge.plist << 'EOF'

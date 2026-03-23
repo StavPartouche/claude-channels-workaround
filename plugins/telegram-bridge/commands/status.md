@@ -1,9 +1,6 @@
 ---
-name: telegram-bridge:status
 description: Show whether the Telegram Claude bridge is running and print a quick-reference cheatsheet
-user-invocable: true
-allowed-tools:
-  - Bash
+allowed-tools: "*"
 ---
 
 1. Run `tmux has-session -t claude-telegram 2>/dev/null && echo "RUNNING" || echo "NOT_RUNNING"` to check if the bridge is active.
