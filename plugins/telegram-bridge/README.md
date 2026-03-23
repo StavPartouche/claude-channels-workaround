@@ -4,19 +4,30 @@ Control Claude Code remotely from your phone via Telegram.
 
 A bash bridge that polls the Telegram Bot API and pipes messages to `claude --print`, sending responses back. No Node.js, no Python — just `curl`, `jq`, and `tmux`.
 
-## Why
+## The Problem
 
-Claude Code v2.1.80+ has a `--channels` flag for Telegram integration, but it returns _"Channels are not currently available"_ for most users on API-based subscriptions. This bridge bypasses the channels system entirely.
+Claude Code v2.1.80+ introduced a `--channels` flag for Telegram integration, but most users on API-based subscriptions get this error:
+
+```
+Channels are not currently available
+```
+
+This is a server-side feature flag that hasn't rolled out broadly yet. Open issues tracking this:
+
+- [Issue #36503](https://github.com/anthropics/claude-code/issues/36503) — "Channels are not currently available"
+- [Issue #37071](https://github.com/anthropics/claude-code/issues/37071) — Telegram channel not working for API users
+
+## The Workaround
+
+This plugin bypasses the channels system entirely with a bash bridge that polls the Telegram Bot API directly, pipes messages to `claude --print`, and sends responses back. No Node.js, no Python — just `curl`, `jq`, and `tmux`.
 
 > **Credit:** The bridge script is based on the excellent workaround by [@tzachbon](https://github.com/tzachbon):
 > [https://gist.github.com/tzachbon/60246bb96bac7f2e98637f08e895e939](https://gist.github.com/tzachbon/60246bb96bac7f2e98637f08e895e939)
->
-> Tracking issues: [#36503](https://github.com/anthropics/claude-code/issues/36503) · [#37071](https://github.com/anthropics/claude-code/issues/37071)
 
 ## Install
 
 ```bash
-claude plugin add-marketplace claude-channels-workaround --github StavPartouche/claude-channels-workaround
+claude plugin marketplace add https://github.com/StavPartouche/claude-channels-workaround
 claude plugin install telegram-bridge@claude-channels-workaround
 ```
 
