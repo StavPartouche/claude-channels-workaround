@@ -1,6 +1,9 @@
 ---
+name: telegram-bridge:logs
 description: Show the last 50 lines of the Telegram Claude bridge log
-allowed-tools: [Bash]
+user-invocable: true
+allowed-tools:
+  - Bash
 ---
 
 1. Run `tmux has-session -t claude-telegram 2>/dev/null && echo "RUNNING" || echo "NOT_RUNNING"` to get the session status.

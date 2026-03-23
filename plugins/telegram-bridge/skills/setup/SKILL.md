@@ -1,6 +1,10 @@
 ---
+name: telegram-bridge:setup
 description: Guided first-time setup of the Telegram Claude bridge (workaround for API-based Claude subscriptions)
-allowed-tools: [Bash, Write]
+user-invocable: true
+allowed-tools:
+  - Bash
+  - Write
 ---
 
 Guide the user through setup one step at a time. Wait for confirmation before moving to the next step. If something fails, troubleshoot before continuing.
@@ -10,23 +14,23 @@ Guide the user through setup one step at a time. Wait for confirmation before mo
    - `curl --version 2>/dev/null | head -1 || echo "MISSING: curl not found"`
    - `jq --version 2>/dev/null || echo "MISSING: jq not found"`
    - `tmux -V 2>/dev/null || echo "MISSING: tmux not found"`
-   If `jq` or `tmux` are missing on macOS, offer to run `brew install jq tmux` to fix it. Wait for all prerequisites to be confirmed before continuing.
+   If `jq` or `tmux` are missing on macOS, offer to run `brew install jq tmux`. Wait for all prerequisites before continuing.
 
-2. Ask the user to create a Telegram bot: open Telegram, message @BotFather, send `/newbot`, choose a display name and a username ending in `bot`. BotFather will give a token like `123456789:AAH...`. Ask them to paste it here.
+2. Ask the user to create a Telegram bot: open Telegram, message @BotFather, send `/newbot`, choose a name and username ending in `bot`. BotFather gives a token like `123456789:AAH...`. Ask them to paste it here.
 
-3. Once the user pastes their token, store it and run `curl -s "https://api.telegram.org/bot<TOKEN>/getUpdates" | jq '.result[0].message.from | {id, username, first_name}'` to get their Telegram user ID. If the result shows nulls, tell them to open Telegram, find their bot, send it `/start`, and confirm when done. Then re-run the curl command and extract the numeric `id`.
+3. Once the user pastes their token, run `curl -s "https://api.telegram.org/bot<TOKEN>/getUpdates" | jq '.result[0].message.from | {id, username, first_name}'` to get their Telegram user ID. If results are null, tell them to DM their bot `/start` in Telegram then confirm. Re-run and extract the numeric `id`.
 
-4. Create the config files by running:
+4. Run these to create config files (substituting real TOKEN and USER_ID):
    - `mkdir -p ~/.claude/channels/telegram`
    - `echo "TELEGRAM_BOT_TOKEN=<TOKEN>" > ~/.claude/channels/telegram/.env`
    - `chmod 600 ~/.claude/channels/telegram/.env`
-   Then write `~/.claude/channels/telegram/access.json` with the content: `{"dmPolicy":"allowlist","allowFrom":["<USER_ID>"],"groups":{},"pending":{}}` substituting the real user ID.
+   - Write `~/.claude/channels/telegram/access.json` with: `{"dmPolicy":"allowlist","allowFrom":["<USER_ID>"],"groups":{},"pending":{}}`
 
-5. Create the bot directory by running `mkdir -p ~/claude-telegram-bot/logs`. Then write `~/claude-telegram-bot/CLAUDE.md` with: "You are a helpful assistant responding via Telegram. Reply directly and concisely. Output only your answer, nothing else."
+5. Run `mkdir -p ~/claude-telegram-bot/logs` then write `~/claude-telegram-bot/CLAUDE.md` with: "You are a helpful assistant responding via Telegram. Reply directly and concisely. Output only your answer, nothing else."
 
-6. Write `~/claude-telegram-bot/bridge.sh` with the following content, then run `chmod +x ~/claude-telegram-bot/bridge.sh`:
+6. Write `~/claude-telegram-bot/bridge.sh` with the content below, then run `chmod +x ~/claude-telegram-bot/bridge.sh`:
 
-```
+```bash
 #!/bin/bash
 BOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ENV_FILE="$HOME/.claude/channels/telegram/.env"
@@ -87,9 +91,9 @@ while true; do
 done
 ```
 
-7. Write `~/claude-telegram-bot/start.sh` with the following content, then run `chmod +x ~/claude-telegram-bot/start.sh`:
+7. Write `~/claude-telegram-bot/start.sh` with the content below, then run `chmod +x ~/claude-telegram-bot/start.sh`:
 
-```
+```bash
 #!/bin/bash
 BOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SESSION_NAME="claude-telegram"
@@ -100,11 +104,11 @@ tmux new-session -d -s "$SESSION_NAME" -c "$BOT_DIR" "$BOT_DIR/bridge.sh 2>&1 | 
 echo "Started Telegram bridge in tmux session '$SESSION_NAME'"
 ```
 
-8. Start the bridge by running `bash ~/claude-telegram-bot/start.sh`, then wait 3 seconds and run `tail -5 ~/claude-telegram-bot/logs/bridge.log` to confirm it started. The log should show `telegram-bridge: starting as <botname>`.
+8. Run `bash ~/claude-telegram-bot/start.sh`, wait 3 seconds, then run `tail -5 ~/claude-telegram-bot/logs/bridge.log` to confirm it started. The log should show `telegram-bridge: starting as <botname>`.
 
-9. Tell the user to send a message to their bot in Telegram. Run `tail -10 ~/claude-telegram-bot/logs/bridge.log` to confirm a message was received and a response was sent.
+9. Tell the user to send a test message to their bot in Telegram. Run `sleep 5 && tail -10 ~/claude-telegram-bot/logs/bridge.log` to confirm a message was received and a response sent.
 
-10. Ask the user if they want the bridge to auto-start on login. If yes, tell them to run the following in their terminal (Claude Code cannot write to LaunchAgents due to system permissions — they must run this themselves), replacing YOUR_USERNAME with the result of `whoami`:
+10. Ask if they want the bridge to auto-start on login. If yes, tell them to run the following in their terminal (replacing YOUR_USERNAME with their actual username — run `whoami` to check):
 
 ```
 cat > ~/Library/LaunchAgents/com.claude.telegram-bridge.plist << 'EOF'
